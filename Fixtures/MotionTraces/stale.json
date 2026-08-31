@@ -1,0 +1,61 @@
+{
+  "name": "freshness timeout",
+  "initialEnergy": "steady",
+  "events": [
+    {
+      "atSeconds": 0,
+      "command": "observe",
+      "cadenceStepsPerMinute": 110,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 0,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 9,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 432000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 10,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 480000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 10.1,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 484800,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": true,
+        "queuedTransition": null
+      }
+    }
+  ]
+}

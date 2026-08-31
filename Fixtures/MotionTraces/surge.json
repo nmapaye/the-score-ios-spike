@@ -1,0 +1,138 @@
+{
+  "name": "brief running surge",
+  "initialEnergy": "steady",
+  "events": [
+    {
+      "atSeconds": 0,
+      "command": "observe",
+      "cadenceStepsPerMinute": 150,
+      "activity": "running",
+      "confidence": "medium",
+      "expect": {
+        "transportFrame": 0,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 1,
+      "command": "observe",
+      "cadenceStepsPerMinute": 151,
+      "activity": "running",
+      "confidence": "medium",
+      "expect": {
+        "transportFrame": 48000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 2,
+      "command": "observe",
+      "cadenceStepsPerMinute": 151,
+      "activity": "running",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 96000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 3,
+      "command": "observe",
+      "cadenceStepsPerMinute": 152,
+      "activity": "running",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 144000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 4,
+      "command": "observe",
+      "cadenceStepsPerMinute": 151,
+      "activity": "running",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 192000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 5,
+      "command": "observe",
+      "cadenceStepsPerMinute": 150,
+      "activity": "running",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 240000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "surge",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": {
+          "target": "energy:surge",
+          "boundary": "bar",
+          "executeAtFrame": 288000,
+          "reason": "runningSurge"
+        }
+      }
+    },
+    {
+      "atSeconds": 6,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 288000,
+        "sectionID": "foundation",
+        "currentEnergy": "surge",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": {
+          "target": "energy:steady",
+          "boundary": "bar",
+          "executeAtFrame": 864000,
+          "reason": "surgeExpired"
+        }
+      }
+    },
+    {
+      "atSeconds": 18,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 864000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": true,
+        "queuedTransition": null
+      }
+    }
+  ]
+}

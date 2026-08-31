@@ -1,0 +1,136 @@
+{
+  "name": "easy-to-steady walk",
+  "initialEnergy": "easy",
+  "events": [
+    {
+      "atSeconds": 0,
+      "command": "observe",
+      "cadenceStepsPerMinute": 112,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 0,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 2,
+      "command": "observe",
+      "cadenceStepsPerMinute": 111,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 96000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 4,
+      "command": "observe",
+      "cadenceStepsPerMinute": 113,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 192000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 6,
+      "command": "observe",
+      "cadenceStepsPerMinute": 112,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 288000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 8,
+      "command": "observe",
+      "cadenceStepsPerMinute": 114,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 384000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 10,
+      "command": "observe",
+      "cadenceStepsPerMinute": 112,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 480000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "easy",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 12,
+      "command": "observe",
+      "cadenceStepsPerMinute": 113,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 576000,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": {
+          "target": "energy:steady",
+          "boundary": "bar",
+          "executeAtFrame": 672000,
+          "reason": "adaptiveCadence"
+        }
+      }
+    },
+    {
+      "atSeconds": 14,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 672000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "name": "steady walk to stop and restart",
+  "initialEnergy": "steady",
+  "events": [
+    {
+      "atSeconds": 0,
+      "command": "observe",
+      "cadenceStepsPerMinute": 112,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 0,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 12,
+      "command": "observe",
+      "cadenceStepsPerMinute": 0,
+      "activity": "stationary",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 576000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 15,
+      "command": "observe",
+      "cadenceStepsPerMinute": 0,
+      "activity": "stationary",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 720000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 18,
+      "command": "observe",
+      "cadenceStepsPerMinute": 0,
+      "activity": "stationary",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 864000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "still",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": {
+          "target": "energy:still",
+          "boundary": "bar",
+          "executeAtFrame": 960000,
+          "reason": "adaptiveCadence"
+        }
+      }
+    },
+    {
+      "atSeconds": 20,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 960000,
+        "sectionID": "foundation",
+        "currentEnergy": "still",
+        "requestedEnergy": "still",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 22,
+      "command": "observe",
+      "cadenceStepsPerMinute": 108,
+      "activity": "walking",
+      "confidence": "high",
+      "expect": {
+        "transportFrame": 1056000,
+        "sectionID": "foundation",
+        "currentEnergy": "still",
+        "requestedEnergy": "still",
+        "adaptationMode": "automatic",
+        "inputIsStale": false,
+        "queuedTransition": null
+      }
+    }
+  ]
+}

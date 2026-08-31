@@ -1,0 +1,91 @@
+{
+  "name": "denied motion and manual override",
+  "initialEnergy": "easy",
+  "events": [
+    {
+      "atSeconds": 0,
+      "command": "denyMotion",
+      "expect": {
+        "transportFrame": 0,
+        "sectionID": "foundation",
+        "currentEnergy": "easy",
+        "requestedEnergy": "steady",
+        "adaptationMode": "manual",
+        "inputIsStale": true,
+        "queuedTransition": {
+          "target": "energy:steady",
+          "boundary": "bar",
+          "executeAtFrame": 96000,
+          "reason": "motionPermissionDenied"
+        }
+      }
+    },
+    {
+      "atSeconds": 2,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 96000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "steady",
+        "adaptationMode": "manual",
+        "inputIsStale": true,
+        "queuedTransition": null
+      }
+    },
+    {
+      "atSeconds": 3,
+      "command": "manualEasy",
+      "expect": {
+        "transportFrame": 144000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "easy",
+        "adaptationMode": "manual",
+        "inputIsStale": true,
+        "queuedTransition": {
+          "target": "energy:easy",
+          "boundary": "bar",
+          "executeAtFrame": 192000,
+          "reason": "manualSelection"
+        }
+      }
+    },
+    {
+      "atSeconds": 3,
+      "command": "manualBrisk",
+      "expect": {
+        "transportFrame": 144000,
+        "sectionID": "foundation",
+        "currentEnergy": "steady",
+        "requestedEnergy": "brisk",
+        "adaptationMode": "manual",
+        "inputIsStale": true,
+        "queuedTransition": {
+          "target": "energy:brisk",
+          "boundary": "bar",
+          "executeAtFrame": 192000,
+          "reason": "manualSelection"
+        }
+      }
+    },
+    {
+      "atSeconds": 4,
+      "command": "tick",
+      "expect": {
+        "transportFrame": 192000,
+        "sectionID": "foundation",
+        "currentEnergy": "brisk",
+        "requestedEnergy": "brisk",
+        "adaptationMode": "manual",
+        "inputIsStale": true,
+        "queuedTransition": {
+          "target": "section:ascent",
+          "boundary": "phrase",
+          "executeAtFrame": 384000,
+          "reason": "authoredSectionChange"
+        }
+      }
+    }
+  ]
+}
