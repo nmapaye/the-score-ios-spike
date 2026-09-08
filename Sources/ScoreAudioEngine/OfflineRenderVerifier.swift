@@ -153,14 +153,16 @@ public enum OfflineRenderVerifier {
         var activeDeck = deckA
         var inactiveDeck = deckB
         var currentEnergy = energy
+        try engine.start()
+        defer { engine.stop() }
         try scheduleSection(
             initialSectionID,
             on: activeDeck,
             pack: pack,
             sectionBuffers: sectionBuffers,
-            energy: currentEnergy
+            energy: currentEnergy,
+            startFrame: 0
         )
-        try engine.start()
 
         guard let renderBuffer = AVAudioPCMBuffer(
             pcmFormat: engine.manualRenderingFormat,
@@ -223,7 +225,8 @@ public enum OfflineRenderVerifier {
                         on: inactiveDeck,
                         pack: pack,
                         sectionBuffers: sectionBuffers,
-                        energy: currentEnergy
+                        energy: currentEnergy,
+                        startFrame: engine.manualRenderingSampleTime
                     )
                     activeDeck.stop()
                     swap(&activeDeck, &inactiveDeck)
@@ -285,7 +288,6 @@ public enum OfflineRenderVerifier {
         if !playersArePhaseAligned(activeDeck.players.values, engine: engine) {
             phaseAlignmentFailures += 1
         }
-        engine.stop()
         return OfflineRenderReport(
             requestedFrames: requestedFrames,
             renderedFrames: renderedFrames,
@@ -383,7 +385,8 @@ public enum OfflineRenderVerifier {
         on deck: OfflineStemDeck,
         pack: ScorePack,
         sectionBuffers: [String: [String: AVAudioPCMBuffer]],
-        energy: EnergyTier
+        energy: EnergyTier,
+        startFrame: AVAudioFramePosition
     ) throws {
         guard let section = pack.sections.first(where: { $0.id == sectionID }),
               let buffers = sectionBuffers[sectionID] else {
@@ -401,7 +404,8 @@ public enum OfflineRenderVerifier {
                 options: section.loops ? .loops : [],
                 completionHandler: nil
             )
-            player.play()
+            // A shared sample time avoids host-clock "now" delays during fast offline renders.
+            player.play(at: AVAudioTime(sampleTime: startFrame, atRate: buffer.format.sampleRate))
         }
         applyMix(energy, to: deck, pack: pack)
     }
