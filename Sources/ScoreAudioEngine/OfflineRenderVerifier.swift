@@ -196,7 +196,7 @@ public enum OfflineRenderVerifier {
         while renderedFrames < requestedFrames {
             if eventIndex < events.count, events[eventIndex].frame == renderedFrames {
                 phaseCheckCount += 1
-                if !playersArePhaseAligned(activeDeck.players.values) {
+                if !playersArePhaseAligned(activeDeck.players.values, engine: engine) {
                     phaseAlignmentFailures += 1
                 }
             }
@@ -282,7 +282,7 @@ public enum OfflineRenderVerifier {
         }
 
         phaseCheckCount += 1
-        if !playersArePhaseAligned(activeDeck.players.values) {
+        if !playersArePhaseAligned(activeDeck.players.values, engine: engine) {
             phaseAlignmentFailures += 1
         }
         engine.stop()
@@ -421,12 +421,25 @@ public enum OfflineRenderVerifier {
     }
 
     private static func playersArePhaseAligned<S: Sequence>(
-        _ players: S
+        _ players: S,
+        engine: AVAudioEngine
     ) -> Bool where S.Element == AVAudioPlayerNode {
         let playerList = Array(players)
         let positions = playerList.compactMap { player -> AVAudioFramePosition? in
-            guard let renderTime = player.lastRenderTime,
-                  let playerTime = player.playerTime(forNodeTime: renderTime) else {
+            // Offline rendering can expose a node time without either validity flag.
+            // Use the engine's documented sample timeline before asking AVFAudio to convert it.
+            let renderTime: AVAudioTime
+            if let lastRenderTime = player.lastRenderTime,
+               lastRenderTime.isSampleTimeValid || lastRenderTime.isHostTimeValid {
+                renderTime = lastRenderTime
+            } else {
+                renderTime = AVAudioTime(
+                    sampleTime: engine.manualRenderingSampleTime,
+                    atRate: engine.manualRenderingFormat.sampleRate
+                )
+            }
+            guard let playerTime = player.playerTime(forNodeTime: renderTime),
+                  playerTime.isSampleTimeValid else {
                 return nil
             }
             return playerTime.sampleTime
